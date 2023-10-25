@@ -6,19 +6,23 @@ function Form() {
   const router = useRouter();
   const [username, setUsername] = useState<undefined | string>("");
   const [password, setPassword] = useState<undefined | string>("");
+  const [errors, setErrors] = useState<string[]>([]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    setErrors([]);
+
     const res = await fetch("/api/login", {
       method: "POST",
       body: JSON.stringify({ username, password }),
     });
 
+    const data = await res.json();
+
     if (res.ok) {
       router.push("/feed");
     } else {
-      // TODO: Provide a better error message
-      alert("Log In Failed");
+      setErrors([...errors, data.error]);
     }
   }
 
@@ -63,6 +67,11 @@ function Form() {
       >
         Sign In
       </button>
+      {errors.map((error) => (
+        <p key={error} className="text-red-600 text-center">
+          {error}
+        </p>
+      ))}
     </form>
   );
 }
