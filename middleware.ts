@@ -4,13 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  const authenticatedAPIRoutes = [pathname.startsWith("/api/users")];
+  const authenticatedAPIRoutes = [
+    pathname.startsWith("/api/users"),
+    pathname.startsWith("/api/posts"),
+  ];
 
   if (authenticatedAPIRoutes.includes(true)) {
     const cookie = request.cookies.get("jwt-token");
 
     if (!cookie || !cookie?.value) {
-      return NextResponse.json({ error: "Unauthenticated" });
+      return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
     }
 
     try {
@@ -18,10 +21,7 @@ export async function middleware(request: NextRequest) {
       await jwtVerify(cookie.value, secret);
     } catch (error) {
       console.log(error);
-      return NextResponse.json(
-        { error: "Internal Server Error" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
     }
   }
 }
