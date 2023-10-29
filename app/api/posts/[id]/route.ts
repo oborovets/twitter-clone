@@ -54,3 +54,4 @@ export async function DELETE(request: Request, { params }: Params) {
   }
   return NextResponse.json({ error: "Not Found!" }, { status: 404 });
 }
+
