@@ -11,3 +11,7 @@ export interface Post {
   username: string;
   avatar: string;
 }
+
+export interface Params {
+  params: { id: string };
+}

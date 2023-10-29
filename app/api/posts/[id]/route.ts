@@ -1,12 +1,8 @@
-import { getJWTPayload } from "@/app/util/auth";
-import { sql } from "@/db";
 import { NextResponse } from "next/server";
 
-interface Params {
-  params: {
-    id: number;
-  };
-}
+import { getJWTPayload } from "@/app/util/auth";
+import { sql } from "@/db";
+import { Params } from "@/app/types";
 
 export async function GET(request: Request, { params }: Params) {
   const jwtPayload = await getJWTPayload();
@@ -54,4 +50,3 @@ export async function DELETE(request: Request, { params }: Params) {
   }
   return NextResponse.json({ error: "Not Found!" }, { status: 404 });
 }
-
