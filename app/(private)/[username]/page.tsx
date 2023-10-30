@@ -1,6 +1,7 @@
 "use client";
 import useSWR from "swr";
 import UserPageHeader from "./user-page-header";
+import PostContainer from "@/app/components/post-container";
 
 interface Props {
   params: {
@@ -12,7 +13,7 @@ export default function UserPage({ params }: Props) {
   return (
     <div>
       <UserPageHeader username={params.username} />
-      <div>posts container {params.username}</div>
+      <PostContainer username={params.username} />
     </div>
   );
 }

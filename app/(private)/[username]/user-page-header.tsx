@@ -1,4 +1,5 @@
 "use client";
+import { notFound } from "next/navigation";
 import useSWR, { mutate } from "swr";
 
 interface Props {
@@ -21,7 +22,9 @@ export default function UserPageHeader({ username }: Props) {
   if (userError || followError) return <div>Failed to load</div>;
   if (isLoadingUser || isLoadingFollow) return <div>Loading...</div>;
 
-  const user = userData.data[0];
+  if (userData.data.length === 0) {
+    notFound();
+  }
 
   async function handleFollow() {
     const res = await fetch("/api/follows", {
@@ -42,15 +45,20 @@ export default function UserPageHeader({ username }: Props) {
   }
 
   return (
-    <header>
-      <div>
-        <h2>{username}</h2>
-        {followData.data.length > 0 ? (
-          <button onClick={handleUnfollow}>Unfollow</button>
-        ) : (
-          <button onClick={handleFollow}>Follow</button>
-        )}
-      </div>
+    <header className="w-full bg-slate-800 p-2 flex flex-row justify-between items-center">
+      <h2 className="text-lg font-bold ">{username}</h2>
+      {followData.data.length > 0 ? (
+        <button
+          className="bg-slate-900 p-2 rounded-lg"
+          onClick={handleUnfollow}
+        >
+          Unfollow
+        </button>
+      ) : (
+        <button className="bg-slate-900 p-2 rounded-lg" onClick={handleFollow}>
+          Follow
+        </button>
+      )}
     </header>
   );
 }
