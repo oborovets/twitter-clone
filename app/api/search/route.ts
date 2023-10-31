@@ -5,8 +5,9 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
   const search = searchParams.get("q");
+
   if (!search) {
-    return NextResponse.json({ error: "Seach param requied" }, { status: 400 });
+    return NextResponse.json({ data: [] }, { status: 200 });
   }
 
   const res = await sql(

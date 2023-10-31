@@ -29,18 +29,20 @@ export default function UserPageHeader({ username }: Props) {
   async function handleFollow() {
     const res = await fetch("/api/follows", {
       method: "POST",
-      body: JSON.stringify({ user_id: user.id }),
+      body: JSON.stringify({ user_id: userData.id }),
     });
 
     if (res.ok) {
-      mutate("/api/follows?user_id=" + user.id);
+      mutate("/api/follows?user_id=" + userData.id);
     }
   }
 
   async function handleUnfollow() {
-    const res = await fetch("/api/follows/" + user.id, { method: "DELETE" });
+    const res = await fetch("/api/follows/" + userData.id, {
+      method: "DELETE",
+    });
     if (res.ok) {
-      mutate("/api/follows?user_id=" + user.id);
+      mutate("/api/follows?user_id=" + userData.id);
     }
   }
 
