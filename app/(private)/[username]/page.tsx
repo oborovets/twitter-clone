@@ -1,5 +1,4 @@
 "use client";
-import useSWR from "swr";
 import UserPageHeader from "./user-page-header";
 import PostContainer from "@/app/components/post-container";
 
