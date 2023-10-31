@@ -5,8 +5,9 @@ import Post from "./post";
 interface Props {
   index: number;
   username: string;
+  showEditButton?: boolean;
 }
-function PostList({ index, username }: Props) {
+function PostList({ index, username, showEditButton = false }: Props) {
   const { data, error, isLoading } = useSWR(
     () => "/api/posts?page=" + index + "&username=" + username
   );
@@ -18,7 +19,7 @@ function PostList({ index, username }: Props) {
     <ul>
       {data.data.map((post: PostI) => (
         <li key={post.id}>
-          <Post post={post} />
+          <Post post={post} showEditButton={showEditButton} />
         </li>
       ))}
     </ul>

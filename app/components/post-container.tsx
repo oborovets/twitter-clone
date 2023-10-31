@@ -3,14 +3,22 @@ import PostList from "./post-list";
 
 interface Props {
   username: string;
+  showEditButton?: boolean;
 }
 
-function PostContainer({ username }: Props) {
+function PostContainer({ username, showEditButton = false }: Props) {
   const [cnt, setCnt] = useState(1);
 
   const pages = [];
   for (let i = 0; i < cnt; i++) {
-    pages.push(<PostList key={i} index={i} username={username} />);
+    pages.push(
+      <PostList
+        key={i}
+        index={i}
+        username={username}
+        showEditButton={showEditButton}
+      />
+    );
   }
 
   return (

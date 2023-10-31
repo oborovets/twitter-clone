@@ -5,9 +5,10 @@ import { Post as PostI } from "@/app/types";
 
 interface Props {
   post: PostI;
+  showEditButton?: boolean;
 }
 
-function Post({ post }: Props) {
+function Post({ post, showEditButton = false }: Props) {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
@@ -45,6 +46,16 @@ function Post({ post }: Props) {
         </div>
         <div>{post.content}</div>
       </div>
+      {showEditButton && (
+        <div className="text-right flex-grow">
+          <Link
+            className="text-green-400"
+            href={`/profile/edit-post/${post.id}`}
+          >
+            Edit
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
