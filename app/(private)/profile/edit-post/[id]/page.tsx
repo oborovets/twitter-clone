@@ -1,7 +1,8 @@
 "use client";
-import { Params } from "@/app/types";
 import useSWR from "swr";
 import Form from "./form";
+import DeleteBtn from "./delete-btn";
+import { Params } from "@/app/types";
 
 export default function EditPost({ params }: Params) {
   const { data, error, isLoading } = useSWR("/api/posts/" + params.id);
@@ -14,7 +15,7 @@ export default function EditPost({ params }: Params) {
       <h2>Edit Post</h2>
       <div className="flex flex-col gap-10">
         <Form post={data.data} />
-        {/* <DeleteBtn /> */}
+        <DeleteBtn post={data.data} />
       </div>
     </div>
   );
