@@ -15,3 +15,8 @@ export interface Post {
 export interface Params {
   params: { id?: string; user_id?: number };
 }
+
+export interface PostInfo {
+  id: number;
+  content: string;
+}
