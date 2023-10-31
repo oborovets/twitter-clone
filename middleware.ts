@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
   if (authenticatedCronRoutes.includes(true)) {
     const key = request.nextUrl.searchParams.get("cron_api_key");
     const isAuthenticated = key === process.env.CRON_API_KEY;
-    console.log(key);
+
     if (!isAuthenticated) {
       return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
     }
